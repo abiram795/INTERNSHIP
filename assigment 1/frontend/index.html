@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API C2C - LinkedIn Job Search & Recruiter Email Automation</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect x="2" y="9" width="4" height="12"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">API C2C</span>
+          <span class="brand-subtitle">Automation Platform</span>
+        </div>
+      </div>
+
+      <div class="sidebar-status-box">
+        <div class="status-indicator-row">
+          <span class="status-dot active"></span>
+          <span class="status-label">Pipeline Active</span>
+        </div>
+        <div class="status-meta" id="sidebar-provider-label">Provider: Loading...</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#overview" class="nav-item active" data-tab="overview">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>Overview</span>
+        </a>
+        <a href="#posts" class="nav-item" data-tab="posts">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span>LinkedIn Posts</span>
+        </a>
+        <a href="#recruiters" class="nav-item" data-tab="recruiters">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <span>Recruiters</span>
+        </a>
+        <a href="#campaigns" class="nav-item" data-tab="campaigns">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span>Email Campaigns</span>
+          <span class="nav-badge" id="sidebar-pending-badge">0</span>
+        </a>
+        <a href="#settings" class="nav-item" data-tab="settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <span>Settings</span>
+        </a>
+        <a href="#logs" class="nav-item" data-tab="logs">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+          <span>Audit Logs</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="btn-trigger-pipeline" class="btn btn-primary btn-full">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>Run Pipeline Now</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <h1 class="page-title" id="current-page-title">Overview</h1>
+          <span class="page-subtitle">Real-time C2C & W2 Job Market Intelligence</span>
+        </div>
+        <div class="header-right">
+          <div class="pill-badge pill-info" id="top-linkedin-pill">LinkedIn: Mock Data</div>
+          <div class="pill-badge pill-purple" id="top-gmail-pill">Gmail: Sandbox Mode</div>
+          <button class="btn btn-sm btn-outline" id="btn-refresh-data" title="Refresh Dashboard Data">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+            <span>Refresh</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Connection Alert Banner if not served via port 8000 -->
+      <div id="backend-connection-banner" style="display: none; background: #eff6ff; border-bottom: 1px solid #bfdbfe; color: #1e40af; padding: 10px 24px; font-size: 13px; display: flex; align-items: center; justify-content: space-between;">
+        <span>ℹ️ <strong>Connected via Live Server:</strong> Backend API is running on <a href="http://127.0.0.1:8000" target="_blank" style="color: #2563eb; font-weight: bold; text-decoration: underline;">http://127.0.0.1:8000</a>. You can use this dashboard directly or open the primary server URL!</span>
+        <a href="http://127.0.0.1:8000" target="_blank" class="btn btn-primary btn-sm" style="padding: 4px 10px; font-size: 11px;">Open Port 8000 ↗</a>
+      </div>
+
+      <!-- View Containers -->
+      <div class="view-content">
+
+        <!-- ==================== TAB 1: OVERVIEW ==================== -->
+        <section id="view-overview" class="tab-pane active">
+          <!-- 7 Metric Cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon icon-blue">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Total Posts Collected</span>
+                <span class="stat-value" id="stat-total-posts">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon icon-green">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Published Last 24 Hours</span>
+                <span class="stat-value" id="stat-posts-24h">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon icon-cyan">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">US-Based Opportunities</span>
+                <span class="stat-value" id="stat-us-posts">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon icon-indigo">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Total Recruiters Found</span>
+                <span class="stat-value" id="stat-total-recruiters">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon icon-emerald">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Valid Business Emails</span>
+                <span class="stat-value" id="stat-valid-emails">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon icon-amber">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"></path><circle cx="12" cy="12" r="9"></circle></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Awaiting Admin Approval</span>
+                <span class="stat-value" id="stat-pending-approval">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon icon-violet">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Successfully Sent Emails</span>
+                <span class="stat-value" id="stat-sent-emails">0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Conversion Pipeline Funnel -->
+          <div class="panel-box">
+            <div class="panel-header">
+              <h2 class="panel-title">End-to-End Automation Pipeline Flow</h2>
+              <span class="badge badge-success">Live Supervised Workflow</span>
+            </div>
+            <div class="pipeline-stepper">
+              <div class="pipeline-step">
+                <div class="step-circle">1</div>
+                <div class="step-title">LinkedIn Search</div>
+                <div class="step-desc">6 Target Keywords</div>
+              </div>
+              <div class="pipeline-arrow">➔</div>
+              <div class="pipeline-step">
+                <div class="step-circle">2</div>
+                <div class="step-title">Filter 24h & US</div>
+                <div class="step-desc">Timezone & States</div>
+              </div>
+              <div class="pipeline-arrow">➔</div>
+              <div class="pipeline-step">
+                <div class="step-circle">3</div>
+                <div class="step-title">Extract Recruiter</div>
+                <div class="step-desc">Name, Job, Email</div>
+              </div>
+              <div class="pipeline-arrow">➔</div>
+              <div class="pipeline-step">
+                <div class="step-circle">4</div>
+                <div class="step-title">Validate Email</div>
+                <div class="step-desc">RFC & Disposable Check</div>
+              </div>
+              <div class="pipeline-arrow">➔</div>
+              <div class="pipeline-step highlight">
+                <div class="step-circle">5</div>
+                <div class="step-title">Admin Approval</div>
+                <div class="step-desc">Manual Supervised Review</div>
+              </div>
+              <div class="pipeline-arrow">➔</div>
+              <div class="pipeline-step">
+                <div class="step-circle">6</div>
+                <div class="step-title">Gmail Send</div>
+                <div class="step-desc">OAuth 2.0 / Log Audit</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity & Search History Two-Column Grid -->
+          <div class="two-col-grid">
+            <div class="panel-box">
+              <div class="panel-header">
+                <h3 class="panel-title">Recent Keyword Search Runs</h3>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Keyword</th>
+                      <th>Found</th>
+                      <th>Saved</th>
+                      <th>Recruiters</th>
+                      <th>Time</th>
+                    </tr>
+                  </thead>
+                  <tbody id="overview-search-history-tbody">
+                    <tr><td colspan="5" class="text-center text-muted">No search runs recorded yet. Click "Run Pipeline Now".</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="panel-box">
+              <div class="panel-header">
+                <h3 class="panel-title">Live Email Delivery Audit Logs</h3>
+              </div>
+              <div class="activity-feed" id="overview-email-logs-feed">
+                <div class="text-muted text-center py-4">No recent email logs.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== TAB 2: LINKEDIN POSTS ==================== -->
+        <section id="view-posts" class="tab-pane">
+          <div class="panel-box">
+            <!-- Filter Bar -->
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <div class="keyword-pills" id="posts-keyword-filters">
+                  <button class="pill-btn active" data-kw="all">All Keywords</button>
+                  <button class="pill-btn" data-kw="Java Developer C2C">Java Developer C2C</button>
+                  <button class="pill-btn" data-kw="Bench">Bench</button>
+                  <button class="pill-btn" data-kw="Sales">Sales</button>
+                  <button class="pill-btn" data-kw="W2">W2</button>
+                  <button class="pill-btn" data-kw="Full-Time">Full-Time</button>
+                  <button class="pill-btn" data-kw="Hotlist">Hotlist</button>
+                </div>
+              </div>
+              <div class="toolbar-right">
+                <label class="toggle-control">
+                  <input type="checkbox" id="filter-posts-24h" checked>
+                  <span class="toggle-text">Last 24h Only</span>
+                </label>
+                <label class="toggle-control">
+                  <input type="checkbox" id="filter-posts-us" checked>
+                  <span class="toggle-text">US Jobs Only</span>
+                </label>
+                <button class="btn btn-outline btn-sm" id="btn-add-test-post">➕ Add Test Post</button>
+              </div>
+            </div>
+
+            <div class="search-bar-row">
+              <input type="text" id="posts-search-input" class="form-input" placeholder="Search post text, recruiter name, or company...">
+            </div>
+
+            <!-- Posts List -->
+            <div class="posts-grid" id="posts-container">
+              <div class="loading-spinner-box">Loading LinkedIn posts...</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== TAB 3: RECRUITERS ==================== -->
+        <section id="view-recruiters" class="tab-pane">
+          <div class="panel-box">
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <input type="text" id="recruiters-search-input" class="form-input" placeholder="Search recruiters by name, company, email...">
+              </div>
+              <div class="toolbar-right">
+                <select id="filter-recruiter-validation" class="form-select">
+                  <option value="ALL">All Email Statuses</option>
+                  <option value="VALID" selected>Valid Business Emails</option>
+                  <option value="RISKY">Risky / Generic</option>
+                  <option value="INVALID">Invalid / Disposable</option>
+                </select>
+                <button class="btn btn-primary btn-sm" id="btn-generate-all-drafts">
+                  ✉️ Generate All Email Drafts
+                </button>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Recruiter Name</th>
+                    <th>Email Address</th>
+                    <th>Company</th>
+                    <th>Job Title</th>
+                    <th>Location</th>
+                    <th>Job Type</th>
+                    <th>Validation Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="recruiters-tbody">
+                  <tr><td colspan="8" class="text-center text-muted">Loading recruiters...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== TAB 4: EMAIL CAMPAIGNS ==================== -->
+        <section id="view-campaigns" class="tab-pane">
+          <div class="panel-box">
+            <div class="campaign-subnav">
+              <button class="subnav-btn active" data-subtab="PENDING_APPROVAL">
+                Awaiting Approval (<span id="count-sub-pending">0</span>)
+              </button>
+              <button class="subnav-btn" data-subtab="APPROVED">
+                Approved & Ready (<span id="count-sub-approved">0</span>)
+              </button>
+              <button class="subnav-btn" data-subtab="SENT">
+                Sent History (<span id="count-sub-sent">0</span>)
+              </button>
+              <button class="subnav-btn" data-subtab="ALL">
+                All Drafts
+              </button>
+            </div>
+
+            <div class="campaign-alert info-alert">
+              <div class="alert-icon">🛡️</div>
+              <div class="alert-content">
+                <strong>Supervised Email Transmission:</strong> In compliance with security policy, emails will never be sent without prior administrator review and approval. Review the customized template before approving.
+              </div>
+            </div>
+
+            <div class="campaigns-grid" id="campaigns-container">
+              <div class="loading-spinner-box">Loading email campaigns...</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== TAB 5: SETTINGS ==================== -->
+        <section id="view-settings" class="tab-pane">
+          <div class="two-col-grid">
+            <!-- Left: Automation & Profile Configuration -->
+            <div class="panel-box">
+              <div class="panel-header">
+                <h3 class="panel-title">Automation & Scheduler Configuration</h3>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Background Automation Status</label>
+                <div class="toggle-switch-wrapper">
+                  <label class="switch">
+                    <input type="checkbox" id="setting-automation-enabled">
+                    <span class="slider round"></span>
+                  </label>
+                  <span id="setting-automation-label" class="setting-helper-text">Automated background search disabled</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="setting-search-frequency">Search Frequency</label>
+                <select id="setting-search-frequency" class="form-select">
+                  <option value="15">Every 15 Minutes</option>
+                  <option value="30">Every 30 Minutes</option>
+                  <option value="60" selected>Every 1 Hour (Recommended)</option>
+                  <option value="120">Every 2 Hours</option>
+                  <option value="360">Every 6 Hours</option>
+                  <option value="1440">Once Daily (24 Hours)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Search Keywords</label>
+                <div class="tag-input-box" id="keywords-tags-container"></div>
+                <input type="text" id="setting-new-keyword-input" class="form-input mt-2" placeholder="Add keyword and press Enter (e.g. Java C2C)">
+              </div>
+
+              <hr class="divider">
+
+              <div class="panel-header">
+                <h3 class="panel-title">Sender & Company Profile</h3>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="setting-company-name">Company Name</label>
+                <input type="text" id="setting-company-name" class="form-input" value="Apex Prime Solutions Inc.">
+              </div>
+
+              <div class="two-field-row">
+                <div class="form-group">
+                  <label class="form-label" for="setting-sender-name">Sender Full Name</label>
+                  <input type="text" id="setting-sender-name" class="form-input" value="Alex Vance">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="setting-sender-title">Sender Job Title</label>
+                  <input type="text" id="setting-sender-title" class="form-input" value="Director of Talent Partnerships">
+                </div>
+              </div>
+
+              <div class="two-field-row">
+                <div class="form-group">
+                  <label class="form-label" for="setting-sender-email">Sender Email</label>
+                  <input type="email" id="setting-sender-email" class="form-input" value="recruiter.bench.sales@gmail.com">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="setting-sender-phone">Contact Phone</label>
+                  <input type="text" id="setting-sender-phone" class="form-input" value="+1 (415) 890-4421">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="setting-email-subject">Email Subject Template</label>
+                <input type="text" id="setting-email-subject" class="form-input" value="Top Bench Talent for {{ job_title }} | C2C & W2 Available">
+                <span class="field-hint">Tags supported: <code>{{ job_title }}</code>, <code>{{ recruiter_name }}</code>, <code>{{ company_name }}</code></span>
+              </div>
+
+              <button class="btn btn-primary btn-full mt-4" id="btn-save-settings">
+                💾 Save Configuration Settings
+              </button>
+            </div>
+
+            <!-- Right: Integrations Status & Live Template Preview -->
+            <div class="panel-box">
+              <div class="panel-header">
+                <h3 class="panel-title">Integrations & API Status</h3>
+              </div>
+
+              <div class="integration-status-card">
+                <div class="integration-icon">🔗</div>
+                <div class="integration-details">
+                  <div class="integration-name">LinkedIn Integration</div>
+                  <div class="integration-desc" id="setting-linkedin-desc">Authorized Mock Provider (Compliant sandbox with authentic IT recruiter posts)</div>
+                </div>
+                <span class="badge badge-info" id="badge-linkedin-status">Active</span>
+              </div>
+
+              <div class="integration-status-card mt-3">
+                <div class="integration-icon">✉️</div>
+                <div class="integration-details">
+                  <div class="integration-name">Gmail API (OAuth 2.0)</div>
+                  <div class="integration-desc" id="setting-gmail-desc">Simulated Sandbox Transmission (Add credentials to .env for live transmission)</div>
+                </div>
+                <span class="badge badge-purple" id="badge-gmail-status">Sandbox Ready</span>
+              </div>
+
+              <hr class="divider">
+
+              <div class="panel-header">
+                <h3 class="panel-title">Email Template Live Preview</h3>
+                <span class="badge badge-outline">templates/email_template.html</span>
+              </div>
+              <div class="template-preview-frame" id="template-preview-box">
+                <iframe id="template-preview-iframe" class="preview-iframe"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== TAB 6: AUDIT LOGS ==================== -->
+        <section id="view-logs" class="tab-pane">
+          <div class="panel-box">
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <h3 class="panel-title">System Audit & Email Activity Trail</h3>
+              </div>
+              <div class="toolbar-right">
+                <button class="btn btn-outline btn-sm" id="btn-refresh-logs">🔄 Refresh Logs</button>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>Recipient</th>
+                    <th>Action</th>
+                    <th>Status</th>
+                    <th>Audit Details</th>
+                  </tr>
+                </thead>
+                <tbody id="logs-tbody">
+                  <tr><td colspan="5" class="text-center text-muted">Loading audit logs...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ==================== MODAL: REVIEW & EDIT EMAIL DRAFT ==================== -->
+  <div class="modal-overlay" id="modal-review-email">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title">Review & Edit Recruiter Email</h3>
+        <button class="modal-close-btn" id="modal-close-review">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="edit-campaign-id">
+        <div class="two-field-row">
+          <div class="form-group">
+            <label class="form-label">Recipient Name</label>
+            <input type="text" id="edit-recipient-name" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Recipient Email</label>
+            <input type="email" id="edit-recipient-email" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input type="text" id="edit-subject" class="form-input">
+        </div>
+
+        <div class="modal-tabs">
+          <button class="modal-tab-btn active" data-modaltab="code">Edit HTML / Text</button>
+          <button class="modal-tab-btn" data-modaltab="preview">Rendered Preview</button>
+        </div>
+
+        <div id="modal-tab-code-view">
+          <textarea id="edit-email-body" class="form-textarea" rows="12"></textarea>
+        </div>
+        <div id="modal-tab-preview-view" style="display: none;">
+          <iframe id="edit-preview-iframe" class="modal-preview-iframe"></iframe>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger btn-sm" id="btn-modal-reject">Reject Draft</button>
+        <div class="modal-footer-right">
+          <button class="btn btn-outline" id="btn-modal-save">Save Changes</button>
+          <button class="btn btn-success" id="btn-modal-approve">Approve</button>
+          <button class="btn btn-primary" id="btn-modal-send">Approve & Send Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: ADD TEST POST ==================== -->
+  <div class="modal-overlay" id="modal-add-post">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Inject Authorized LinkedIn Post</h3>
+        <button class="modal-close-btn" id="modal-close-add-post">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Post URL</label>
+          <input type="url" id="new-post-url" class="form-input" placeholder="https://www.linkedin.com/feed/update/urn:li:share:...">
+        </div>
+        <div class="two-field-row">
+          <div class="form-group">
+            <label class="form-label">Author Name</label>
+            <input type="text" id="new-post-author" class="form-input" placeholder="e.g. John Doe">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Company Name</label>
+            <input type="text" id="new-post-company" class="form-input" placeholder="e.g. TekStaffing Solutions">
+          </div>
+        </div>
+        <div class="two-field-row">
+          <div class="form-group">
+            <label class="form-label">Matched Keyword</label>
+            <select id="new-post-keyword" class="form-select">
+              <option value="Java Developer C2C">Java Developer C2C</option>
+              <option value="Bench">Bench</option>
+              <option value="Sales">Sales</option>
+              <option value="W2">W2</option>
+              <option value="Full-Time">Full-Time</option>
+              <option value="Hotlist">Hotlist</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Location</label>
+            <input type="text" id="new-post-location" class="form-input" placeholder="e.g. Dallas, TX or Remote US">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Publication Timing</label>
+          <select id="new-post-timing" class="form-select">
+            <option value="now">Just Now (0 hours ago - within 24h)</option>
+            <option value="5h">5 hours ago (within 24h)</option>
+            <option value="30h">30 hours ago (excluded by 24h filter)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Post Content</label>
+          <textarea id="new-post-content" class="form-textarea" rows="5" placeholder="Enter post text including recruiter contact email and requirements..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="btn-cancel-add-post">Cancel</button>
+        <button class="btn btn-primary" id="btn-submit-add-post">Save & Run Filters</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
+

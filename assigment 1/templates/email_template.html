@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collaboration: Candidate Availability for {{ job_title }}</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f9;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #2d3748;
+      line-height: 1.6;
+    }
+    .email-container {
+      max-width: 620px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    .header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 24px 32px;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .header .subtitle {
+      margin-top: 4px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+    .content {
+      padding: 32px;
+    }
+    .greeting {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    p {
+      margin: 0 0 16px 0;
+      font-size: 15px;
+      color: #334155;
+    }
+    .highlight-card {
+      background-color: #f8fafc;
+      border-left: 4px solid #2563eb;
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .highlight-card p {
+      margin: 0;
+      font-size: 14px;
+      color: #1e293b;
+    }
+    .candidate-bullet {
+      margin: 12px 0;
+      padding-left: 12px;
+    }
+    .candidate-bullet li {
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #475569;
+    }
+    .cta-button {
+      display: inline-block;
+      background-color: #2563eb;
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+    .footer {
+      background-color: #f8fafc;
+      padding: 24px 32px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 13px;
+      color: #64748b;
+    }
+    .signature {
+      margin-bottom: 16px;
+    }
+    .signature .name {
+      font-weight: 600;
+      color: #0f172a;
+    }
+    .signature .title {
+      color: #64748b;
+    }
+    .signature .company {
+      color: #2563eb;
+      font-weight: 500;
+    }
+    .disclaimer {
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="header">
+      <h1>Candidate Availability & Bench Partnership</h1>
+      <div class="subtitle">Reference: {{ job_title }} ({{ job_type }})</div>
+    </div>
+
+    <div class="content">
+      <div class="greeting">Hi {{ recruiter_name }},</div>
+
+      <p>
+        I came across your recent LinkedIn update regarding the opening for 
+        <strong>{{ job_title }}</strong> at <strong>{{ company_name }}</strong>.
+      </p>
+
+      <div class="highlight-card">
+        <p><strong>Position Profile:</strong> {{ job_title }}</p>
+        <p><strong>Engagement Model:</strong> {{ job_type }}</p>
+        <p><strong>Status:</strong> Immediate availability for client interview</p>
+      </div>
+
+      <p>
+        At <strong>{{ sender_company }}</strong>, we specialize in US IT staffing and have pre-vetted, immediate consultants on our bench ready for deployment:
+      </p>
+
+      <ul class="candidate-bullet">
+        <li><strong>Hands-on US Experience:</strong> 8-10+ years across Core Java, Spring Boot, Microservices, Cloud (AWS/Azure/GCP), and modern frontends.</li>
+        <li><strong>Authorized Work Status:</strong> US Citizens, Green Card, and work authorized professionals ready on {{ job_type }}.</li>
+        <li><strong>Flexible Timezones:</strong> Full overlap with EST, CST, and PST project schedules.</li>
+      </ul>
+
+      <p>
+        Could you please share the detailed job description and vendor rate? I would be glad to send over tailored consultant profiles and schedule an introductory call.
+      </p>
+
+      <a href="mailto:{{ sender_email }}?subject=RE: {{ job_title }} - Profiles" class="cta-button">
+        Reply to Request Profiles
+      </a>
+    </div>
+
+    <div class="footer">
+      <div class="signature">
+        <div class="name">{{ sender_name }}</div>
+        <div class="title">{{ sender_title }}</div>
+        <div class="company">{{ sender_company }}</div>
+        <div>Email: <a href="mailto:{{ sender_email }}" style="color: #2563eb; text-decoration: none;">{{ sender_email }}</a></div>
+        <div>Phone: {{ sender_phone }}</div>
+      </div>
+      <div class="disclaimer">
+        This communication was generated regarding your public professional IT staffing posting on LinkedIn. If you are not the intended recipient or wish to update your contact preferences, please reply directly.
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
